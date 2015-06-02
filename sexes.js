@@ -7,9 +7,7 @@
 	var yn=["","no"];
 	window.onload = init;
 	
-	function arrTupel(prefix,tab){
-		var out=[];
-		var lind=0;
+	function arrTupelMin(prefix,tab){
 		depth++;
 		for (var i=0; i<tab.length ;i++){
 			// für jedes Element
@@ -20,37 +18,31 @@
 			for (var j=i+1; j<tab.length;j++){
 					restTable[j-1]=tab[j];
 				}
+			if (restTable.length>0 ){
+				arrTupelMin(yn[0]+tab[i],restTable);
+				arrTupelMin(yn[1]+tab[i],restTable);
+				if (depth<=1||true){ /* for debugging */
+					for (var j=0; j<restTable.length;j++){
+						table["tag"][index]=prefix+yn[0]+tab[i];
+						table["implication"][index]=prefix+yn[0]+tab[i]+yn[0]+restTable[j];
+						table["level"][index++]=depth;
+						
+						table["tag"][index]=prefix+yn[0]+tab[i];
+						table["implication"][index]=prefix+yn[0]+tab[i]+yn[1]+restTable[j];
+						table["level"][index++]=depth;
 				
-			if (restTable.length>0){
-				var tupel=arrTupel(prefix+yn[0]+tab[i],restTable,i);
-				for (var k=0;k<tupel.length;k++){
-					table["tag"][++index]=prefix+yn[0]+tab[i];
-					table["implication"][index]=tupel[k];
-					table["level"][index]=depth;
-					out[lind++]=tupel[k];
-				}
-				tupel=arrTupel(prefix+yn[1]+tab[i],restTable,i);
-				for (var k=0;k<tupel.length;k++){
-					table["tag"][++index]=prefix+yn[1]+tab[i];
-					table["implication"][index]=tupel[k];
-					table["level"][index]=depth;
-					out[lind++]=tupel[k];
+					}	
 				}
 			}
-			else {
-				out[lind++]=prefix+yn[0]+tab[i];
-				out[lind++]=prefix+yn[1]+tab[i];
-			};
 		}
 		depth--;
-		return out;
 	}
 	
 	function printTable(){
 	var output="<table><tr><td>Level</td><td>Tag</td><td>implication</td></tr>";
 	output+="";
 	output+="<tableheader><em>"+table["tag"].length+"</em> Implications have been generated.</tableheader>";
-	for (var i=1; i<Math.min(table["tag"].length,500);i++){
+	for (var i=0; i<Math.min(table["tag"].length,500);i++){
 		output+="<tr>";
 		output+="<td>";
 		output+=table["level"][i];
@@ -68,6 +60,6 @@
 	}
 
 	function init() {
-		arrTupel("",input);
+		arrTupelMin("",input);
     	document.getElementById("implicationTable").innerHTML = printTable();
     }
