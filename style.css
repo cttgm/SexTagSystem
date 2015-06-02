@@ -1,0 +1,42 @@
+*{
+background-color: #bbb;
+margin:20px auto;
+width:800px;
+padding:10px;
+}
+table {
+	border-radius: 5px;
+	color:#000;
+	background-color: #DDD;	
+	width:820px;
+}
+
+tr{
+	background-color: #DDD;
+}
+
+td { 
+	border-radius: 5px;
+	
+	
+	background-color: white;
+}
+
+h1, h2 {
+	background-color: #DDD;
+	border-radius: 5px;
+	
+}
+em {
+	padding:2px;
+	background-color: #FFF;
+}
+
+	
+section, tableheader {
+	background-color: #FFF;
+	border-radius: 5px;
+}
+#implicationTable{
+	margin:0; padding:0;
+}
